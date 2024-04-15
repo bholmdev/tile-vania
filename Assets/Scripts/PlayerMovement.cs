@@ -10,10 +10,12 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 moveInput;
     Rigidbody2D playerRigidBody;
+    Animator playerAnimator;
 
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
+        playerAnimator = GetComponent<Animator>();
     }
 
     void Update()
@@ -31,6 +33,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, playerRigidBody.velocity.y);
         playerRigidBody.velocity = playerVelocity;
+
+        bool playerIsRunning = Mathf.Abs(playerRigidBody.velocity.x) > Mathf.Epsilon;
+
+        playerAnimator.SetBool("isRunning", playerIsRunning);
     }
 
     void FlipSprite()
