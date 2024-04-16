@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         if (!playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             playerRigidBody.gravityScale = gravityScaleAtStart;
+            playerAnimator.SetBool("isClimbing", false);
             return;
         }
 
@@ -80,12 +81,25 @@ public class PlayerMovement : MonoBehaviour
         playerRigidBody.velocity = playerClimbVelocity;
         playerRigidBody.gravityScale = 0f;
 
-        // bool playerIsClimbing = Mathf.Abs(playerRigidBody.velocity.y) > Mathf.Epsilon;
+        bool playerHasVerticalSpeed = Mathf.Abs(playerRigidBody.velocity.y) > Mathf.Epsilon;
 
-        // if (playerIsClimbing)
-        // {
-            
-        //     playerAnimator.SetBool("isClimbing", true);
-        // }
+        if (playerHasVerticalSpeed)
+        {
+            playerAnimator.SetBool("isClimbing", true);
+        }
+        else if (!playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) &&
+                playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        {
+            playerAnimator.SetBool("isClimbing", true);
+        }
+        else if (playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            playerAnimator.SetBool("isClimbing", false);
+        }
+        {
+            return;
+        }
     }
 }
+
+
