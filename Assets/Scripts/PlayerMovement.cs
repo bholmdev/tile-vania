@@ -15,14 +15,16 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     Rigidbody2D playerRigidBody;
     Animator playerAnimator;
-    CapsuleCollider2D playerCapsuleCollider;
+    CapsuleCollider2D playerBodyCollider;
+    BoxCollider2D playerFeetCollider;
     LayerMask ground;
 
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
-        playerCapsuleCollider = GetComponent<CapsuleCollider2D>();
+        playerBodyCollider = GetComponent<CapsuleCollider2D>();
+        playerFeetCollider = GetComponent<BoxCollider2D>();
         gravityScaleAtStart = playerRigidBody.gravityScale;
     }
 
@@ -40,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        if (!playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {return;}
+        if (!playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) {return;}
 
         if (value.isPressed)
         {
@@ -70,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ClimbLadder()
     {
-        if (!playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        if (!playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             playerRigidBody.gravityScale = gravityScaleAtStart;
             playerAnimator.SetBool("isClimbing", false);
@@ -87,15 +89,21 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("isClimbing", true);
         }
-        else if (!playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) &&
-                playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
+        else if (!playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")) &&
+                playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")))
         {
             playerAnimator.SetBool("isClimbing", true);
         }
-        else if (playerCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        else if (!playerBodyCollider.IsTouchingLayers(LayerMask.GetMask("Climbing")) &&
+                playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             playerAnimator.SetBool("isClimbing", false);
         }
+        else if (playerFeetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            playerAnimator.SetBool("isClimbing", false);
+        }
+        else
         {
             return;
         }
