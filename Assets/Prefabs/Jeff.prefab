@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8994004457615745524}
   - component: {fileID: -5280301264901996340}
   - component: {fileID: 7628366294054192012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jeff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 1676686681825334243}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 58e096cafabd4c841932ffb0dce4ecbb, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
