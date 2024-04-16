@@ -11186,13 +11186,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jeff
       objectReference: {fileID: 0}
-    - target: {fileID: 1676686681825334269, guid: 41550271a2cb4aa4f97fecb0b494b410, type: 3}
-      propertyPath: m_SortingLayer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1676686681825334269, guid: 41550271a2cb4aa4f97fecb0b494b410, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1801756731
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41550271a2cb4aa4f97fecb0b494b410, type: 3}
